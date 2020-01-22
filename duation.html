@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      // const start = moment()
+      const end = moment().format("YYYY-MM-DD HH:mm:ss");
+      const start = moment("2020-01-21 21:25:21").format("YYYY-MM-DD HH:mm:ss");
+      const ended = new Date(end).getTime();
+      const started = new Date(start).getTime();
+      // console.log(end.second());
+
+      var diff = ended - started;
+      var seconds = Math.floor((diff / 1000) % 60);
+      var minutes = Math.floor((diff / (1000 * 60)) % 60);
+      var hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+
+      var diferHours = hours < 10 ? "0" + hours : hours;
+      var diferMinutes = minutes < 10 ? "0" + minutes : minutes;
+      var diferSeconds = seconds < 10 ? "0" + seconds : seconds;
+
+      var duration = diferHours + ":" + diferMinutes + ":" + diferSeconds;
+      var darDuration = moment(duration, "HH:mm:ss").format(
+        "YYYY-MM-DD HH:mm:ss"
+      );
+      var limitation = "03:00:00";
+      var darLimitation = moment(limitation, "HH:mm:ss").format(
+        "YYYY-MM-DD HH:mm:ss"
+      );
+      var limitation2 = "03:30:00";
+      var darInt = new Date(darDuration).getTime();
+      var limInt = new Date(darLimitation).getTime();
+      // console.log(darDuration);
+      // console.log(darLimitation);
+      // console.log(duration);
+      // console.log(darInt);
+      // console.log(limInt);
+
+      // var limitDar = moment("3:").format("HH:mm:ss");
+
+      setInterval(() => {
+        if (darInt < limInt1) {
+          // console.log("pas");
+          // console.log("dar stil running durasi = " + duration);
+          if (window.Notification && Notification.permission !== "denied") {
+            Notification.requestPermission(function(status) {
+              var n = new Notification("Folarium Assistant", {
+                body: "Your dar still running " + duration,
+                icon: "logo.png"
+              });
+            });
+          }
+        } else if (darInt > limInt) {
+          console.log("warning check your activity");
+        } else if (darInt >= limInt) {
+          console.log("Your activity has been change to one hours");
+        }
+      }, 15000);
+      // console.log(darDuration + " ");
+    </script>
+  </body>
+</html>
